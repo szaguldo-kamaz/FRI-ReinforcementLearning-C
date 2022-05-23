@@ -254,7 +254,7 @@ static inline void check_possible_states(struct frirl_desc *frirl, fri_float *an
 ///\param sp proposed states
 ///\param ap proposed action
 ///\return void
-void frirl_update_sarsa(struct frirl *frirl, double *s, double a, double r, double *sp, double ap) {
+void frirl_update_sarsa_rc5(struct frirl_desc *frirl, double *s, double a, double r, double *sp, double ap) {
 
     unsigned int i;
     unsigned int values_len = frirl->statedims_len + 1;
@@ -285,10 +285,10 @@ void frirl_update_sarsa(struct frirl *frirl, double *s, double a, double r, doub
 ///\param proposed_states
 ///\param proposed_action
 ///\return void
-void frirl_update_sarsa(struct frirl_desc *frirl, fri_float *states, fri_float action,
+void frirl_update_sarsa_old(struct frirl_desc *frirl, fri_float *states, fri_float action,
     fri_float reward, fri_float *proposed_states, fri_float proposed_action) {
 
-    frirl_update_sarsa(frirl, states, action, reward, proposed_states, proposed_action);
+    frirl_update_sarsa_rc5(frirl, states, action, reward, proposed_states, proposed_action);
 
 }
 

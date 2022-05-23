@@ -34,7 +34,7 @@ static inline unsigned int get_arr_min_i(fri_float *arr, int len) {
 ///\return absolute minimum index
 static inline unsigned int get_arr_abs_min_i(fri_float *arr, int len) {
 
-    //friq_float *tmp = MALLOC(len * sizeof(friq_float));
+    //fri_float *tmp = MALLOC(len * sizeof(fri_float));
     fri_float tmp[len];
 
     arr_abs(arr, tmp, len);

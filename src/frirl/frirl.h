@@ -36,7 +36,7 @@
 //API rc5 (obsoleted, kept for backward compatibility)
 //todo restore rc5 API
 //todo resolve naming inconsistency
-void FRIRL_update_SARSA(struct FRIRL *frirl, double *s, double a, double r, double *sp, double ap);
+//void frirl_update_sarsa_rc5(struct frirl *frirl, double *s, double a, double r, double *sp, double ap);
 
 //API by daniel (obsoleted, to be removed)
 int frirl_init(struct frirl_desc *frirl);
@@ -45,8 +45,9 @@ void frirl_deinit(struct frirl_desc *frirl);
 int frirl_init_ve(struct frirl_desc *frirl, fri_float *ve, fri_float *u, int univlength);
 int frirl_init_rb(struct frirl_desc *frirl, fri_float *rant, fri_float *rconc, int *numofrules);
 
-void frirl_update_sarsa(struct frirl_desc *frirl, fri_float *states, fri_float action,
-                        fri_float rule, fri_float *proposed_states, fri_float proposed_action);
+// TODO to be removed
+//void frirl_update_sarsa_old(struct frirl_desc *frirl, fri_float *states, fri_float action,
+//                            fri_float rule, fri_float *proposed_states, fri_float proposed_action);
 
 void frirl_episode(struct frirl_desc *frirl);
 
@@ -60,8 +61,6 @@ void frirl_sequential_run(struct frirl_desc *frirl);
 void frirl_omp_run(struct frirl_desc *frirl);
 void frirl_mpi_run(struct frirl_desc *frirl);
 
-//API (actual)
-// todo resolve rc5 naming inconsistency
-void FRIRL_update_sarsa(struct frirl_desc *frirl, fri_float *q_ant, fri_float reward, fri_float *cur_q_ant);
+void frirl_update_sarsa(struct frirl_desc *frirl, fri_float *q_ant, fri_float reward, fri_float *cur_q_ant);
 
 #endif //FRIRL_H

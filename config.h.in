@@ -65,7 +65,7 @@
     #include <omp.h>
 #endif
 
-#define FRIQ_AGENT_EPCHUNK 10
+#define FRIRL_AGENT_EPCHUNK 10
 
 #ifdef BUILD_CHECK_STATES
         #define CHECK_STATES 1
