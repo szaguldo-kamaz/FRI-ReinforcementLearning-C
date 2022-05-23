@@ -47,13 +47,13 @@ struct FIVERB {
 	double *ruledists; ///<rule distances
 	double *rant;      ///<rule-base antecedents (without conclusions) - values for each dimension following each other sequentially
 	double **rseqant;  ///<array of rule-base antecedents (without conclusions) where values are stored in sequential order for each dimension
-	double *ract;      ///<a pointer to the action dimension in rseqant (rseqant[last]) - for FRIQ-learning
+	double *ract;      ///<a pointer to the action dimension in rseqant (rseqant[last]) - for FRIRL
 	unsigned int *rant_uindex;      ///<rule-base antecedents (without conclusions) - values for each dimension following each other sequentially - aligned to possible points in U, index in U is stored
 	unsigned int *rant_veval;       ///<VE values of rule-base antecedents (without conclusions) - values for each dimension following each other sequentially - aligned to possible points in U, VE value for index in U is stored
 	unsigned int **rseqant_uindex;  ///<array of rule-base antecedents (without conclusions) where values are stored in sequential order for each dimension - aligned to possible points in U, index in U is stored
 	double **rseqant_veval;         ///<array of VE values of rule-base antecedents (without conclusions) where values are stored in sequential order for each dimension - aligned to possible points in U, VE value for index in U is stored
-	unsigned int *ract_uindex;      ///<a pointer to the action dimension in rseqant_uindex (rseqant_uindex[last]) - for FRIQ-learning
-	double *ract_veval;             ///<a pointer to the action dimension in rseqant_veval (rseqant_veval[last]) - for FRIQ-learning
+	unsigned int *ract_uindex;      ///<a pointer to the action dimension in rseqant_uindex (rseqant_uindex[last]) - for FRIRL
+	double *ract_veval;             ///<a pointer to the action dimension in rseqant_veval (rseqant_veval[last]) - for FRIRL
 	double *rconc;       ///<rule-base consequents (without antecedents)
 	double *weights;     ///<VagConclWeight result for all rules
 	unsigned int uksize; ///<resolution of universe
@@ -85,7 +85,7 @@ int FIVEValVag(struct FIVERB *frb, double *vp);
 
 double FIVEVagConcl(struct FIVERB *frb, double *x);
 unsigned int FIVEVagConclWeight(struct FIVERB *frb, double *x);
-double FIVEVagConcl_FRIQ_BestAct(struct FIVERB *frb, double *ruledists);
+double FIVEVagConcl_FRIRL_BestAct(struct FIVERB *frb, double *ruledists);
 int     FIVEAddRule(struct FIVERB *frb, double *newrule);
 
 // old API (obsoleted, to be removed)
