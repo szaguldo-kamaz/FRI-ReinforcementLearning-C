@@ -24,7 +24,7 @@
 struct FIVERB {
 	double *u;         ///<all universe vectors
 	double *ve;        ///<all vague environment vectors
-	double *rb;        ///<rule-base (all rule vectors)
+//	double *rb;        ///<rule-base (all rule vectors)
 	double *psc;       ///<scaling points
 	double *scf;       ///<scaling functions
 // mu volt
@@ -32,9 +32,11 @@ struct FIVERB {
 // nu volt
 	int univlength;    ///<length of one universe (resolution of one dimension, number of elements in one "u")
 // mr volt
-	int numofrules;    ///<number of rules (number of vectors in *rb)
+	int numofrules;    ///<number of rules (number of vectors in *rant and *rconc)
+	int maxnumofrules;  ///<maximum number of rules
 // nr volt
 	int rulelength;    ///<number of rule dimensions (number of elements in each vector (one rule) in *rb)
+	int numofantecedents; ///<number of rule antecedents
 	int p;             ///<Shepard interpolation parameter
 
 	// cache, precalc
@@ -62,8 +64,10 @@ struct FIVERB {
 	double *wi;          ///<to be used in VagConclWeight
 	double *frd_dists;   ///<to be used in RuleDist
 	double *fvc_vagdist; ///<to be used in VagConcl
-	double *newrule;     ///<to be used in addrule(), points to the rule place after the last rule
+	// TODO RB removed
+	//	double *newrule;     ///<to be used in addrule(), points to the rule place after the last rule
 	double *newrant;     ///<to be used in addrule(), points to the rule ant place after the last rule ant
+	double *newrconc;
 // TODO remove debug
 unsigned int epno; // temp
 #ifdef BUILD_AVX2
@@ -71,7 +75,8 @@ unsigned int epno; // temp
 #endif
 };
 
-struct FIVERB *FIVEInit(double *u, double *ve, int p, int numofunivs, int univlength, int numofrules, int rulelength, double *rulebase);
+// API rc5 (obsoleted, kept for backward compatibility)
+struct FIVERB *FIVEInit(double *u, double *ve, int p, int numofunivs, int univlength, int numofrules, int maxnumofrules, int rulelength, double *rant, double *rconc);
 
 double *FIVEGScFunc(double *u, int numofunivs, int univlength, double *psc, int mp, int np, double nls);
 double *FIVEGVagEnv(double *u, int numofunivs, int univlength, double *scf);
@@ -81,12 +86,20 @@ int FIVEValVag(struct FIVERB *frb, double *vp);
 double FIVEVagConcl(struct FIVERB *frb, double *x);
 unsigned int FIVEVagConclWeight(struct FIVERB *frb, double *x);
 double FIVEVagConcl_FRIQ_BestAct(struct FIVERB *frb, double *ruledists);
+int     FIVEAddRule(struct FIVERB *frb, double *newrule);
 
+// old API (obsoleted, to be removed)
 int five_vague_distance(struct FIVERB *frb, fri_float *p1, fri_float *p2, fri_float *d);
 int five_vague_distance_parallel(struct FIVERB *frb, fri_float *p1, int p1_offset, fri_float *p2, fri_float *d);
 int five_rule_distance(struct FIVERB *frb, fri_float *x);
 int five_add_rule(struct FIVERB *frb, fri_float *ruletoadd);
 int five_remove_rule(struct FIVERB *frb, unsigned int rulenotoremove);
 void five_deinit(struct FIVERB *frb);
+
+// API (current)
+int FIVE_add_rule(struct FIVERB *frb, fri_float *rant, fri_float rconc);
+unsigned int FIVE_vag_concl_weight(struct FIVERB *frb, double *ant, double *weights);
+unsigned int FIVE_vag_concl(struct FIVERB *frb, double *ant, double *conc);
+int FIVE_GSc_func(double *u, int numofunivs, int univlength, double *psc, int mp, int np, double nls, double *scf);
 
 #endif //FIVE_H
