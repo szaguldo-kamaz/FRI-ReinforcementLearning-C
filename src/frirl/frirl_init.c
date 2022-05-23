@@ -64,7 +64,7 @@ int frirl_init(struct frirl_desc *frirl)
         frirl->possible_states[i].values = MALLOC(sizeof(double) * frirl->statedims[i].values_len);
         if (frirl->possible_states[i].values == NULL) {
 #ifdef DEBUG
-            printf("frirl_init: Error - malloc(friq->possible_states[%d].values)\n",i);
+            printf("frirl_init: Error - malloc(frirl->possible_states[%d].values)\n",i);
 #endif
             return -1;
         }
@@ -77,7 +77,7 @@ int frirl_init(struct frirl_desc *frirl)
     frirl->possible_actions = MALLOC(sizeof(struct frirl_values_desc));
     if (frirl->possible_actions == NULL) {
 #ifdef DEBUG
-        printf("frirl_init: Error - malloc(friq->possible_actions)\n");
+        printf("frirl_init: Error - malloc(frirl->possible_actions)\n");
 #endif
         return -1;
     }
