@@ -45,6 +45,7 @@ void five_deinit(struct FIVERB *frb) {
     free(frb->weights);
     free(frb->ukdomains);
     free(frb->udivs);
+    free(frb->valvagp);
     free(frb);
 
 }
