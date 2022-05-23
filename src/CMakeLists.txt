@@ -1,0 +1,6 @@
+add_subdirectory(five)
+add_subdirectory(frirl)
+add_subdirectory(inl)
+if(BUILD_VISUALIZATION)
+    add_subdirectory(gui)
+endif()
