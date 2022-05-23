@@ -1,0 +1,74 @@
+#cmakedefine DEBUG
+#cmakedefine FIVE_FIXRES
+#cmakedefine FIVE_NOINF
+#cmakedefine FIVE_NONAN
+#cmakedefine FRIRL_FAST
+#cmakedefine DOUBLE_PRECISION
+#cmakedefine PREDICT_BRANCHES
+#cmakedefine BUILD_OPENMP
+#cmakedefine BUILD_MPI
+#cmakedefine BUILD_AVX2
+#cmakedefine BUILD_VISUALIZATION
+#cmakedefine FAST_ABS
+#cmakedefine FAST_POW
+#cmakedefine FAST_SQRT
+#cmakedefine BUILD_CHECK_STATES
+
+#ifdef DOUBLE_PRECISION
+    typedef double fri_float;
+#else
+    typedef float fri_float;
+#endif
+
+#ifdef DEBUG
+    #include <stdio.h>
+    #define DEBUG_MSG(...) fprintf(stderr, __VA_ARGS__);
+#else
+    #define DEBUG_MSG(...) {};
+#endif
+
+#ifdef BUILD_AVX2
+    #include <immintrin.h>
+
+    #include <stdint.h>
+
+    #define PRINT_128i(x) {int32_t  *mm = (int32_t *)&x;  printf("%s %d %d %d %d\n", #x, mm[0], mm[1], mm[2], mm[3]);}
+    #define PRINT_128d(x) {double_t *mm = (double_t *)&x; printf("%s %f %f %f %f\n", #x, mm[0], mm[1], mm[2], mm[3]);}
+
+    #define PRINT_256i_32(x) {int32_t *mm = (int32_t *)&x; printf("%s %d %d %d %d %d %d %d %d\n", #x, mm[0], mm[1], mm[2], mm[3], mm[4], mm[5], mm[6], mm[7]);}
+    #define PRINT_256d_32(x) {float_t *mm = (float_t *)&x; printf("%s %f %f %f %f %f %f %f %f\n", #x, mm[0], mm[1], mm[2], mm[3], mm[4], mm[5], mm[6], mm[7]);}
+
+    #define PRINT_256i(x) {int64_t  *mm = (int64_t *)&x;  printf("%s %d %d %d %d\n", #x, mm[0], mm[1], mm[2], mm[3]);}
+    #define PRINT_256d(x) {double_t *mm = (double_t *)&x; printf("%s %f %f %f %f\n", #x, mm[0], mm[1], mm[2], mm[3]);}
+
+    #define SIMD_ALIGN __attribute__((aligned(32)))
+    #define MALLOC(size) aligned_alloc(32, size)
+#else
+    #include <stdlib.h>
+    #define SIMD_ALIGN
+    #define MALLOC(size) malloc(size)
+#endif
+
+#ifdef PREDICT_BRANCHES
+    #define likely(x)   __builtin_expect((x),1)
+    #define unlikely(x) __builtin_expect((x),0)
+#else
+    #define likely(x)   x
+    #define unlikely(x) x
+#endif
+
+#ifdef BUILD_MPI
+    #include <mpi.h>
+#endif
+
+#ifdef BUILD_OPENMP
+    #include <omp.h>
+#endif
+
+#define FRIQ_AGENT_EPCHUNK 10
+
+#ifdef BUILD_CHECK_STATES
+        #define CHECK_STATES 1
+#else
+        #define CHECK_STATES 0
+#endif
