@@ -1,8 +1,9 @@
 # FRI-ReinforcementLearning-C
 *Fuzzy Rule Interpolation-based Reinforcement Learning* (FRIRL - ANSI C + AVX port)
 
-For details about FRIRL itself, please see the main [FRI-ReinforcementLearning repository](https://github.com/szaguldo-kamaz/FRI-ReinforcementLearning/)
-This C + AVX port is a bit behind the MATLAB implementation, but indeed it is significantly faster.
+For details about FRIRL itself, please see the main [FRI-ReinforcementLearning repository](https://github.com/szaguldo-kamaz/FRI-ReinforcementLearning/).
+
+This C + AVX port (AVX2 with inline assembly) is a bit behind the MATLAB implementation regarding features, but the main engine is fully functional, and indeed it is significantly faster.
 
 About the AVX optimization parts, you can find more information in this paper:
 
